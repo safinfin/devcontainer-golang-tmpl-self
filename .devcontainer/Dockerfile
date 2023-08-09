@@ -11,16 +11,18 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} && \
     ca-certificates \
     curl \
     git \
+    groff \
     less \
     sudo \
     unzip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
     echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} && \
-    chmod 0440 /etc/sudoers.d/${USERNAME}
+    chmod 0440 /etc/sudoers.d/${USERNAME} && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 USER ${USERNAME}
 
+# Dev tools
 RUN go install github.com/ramya-rao-a/go-outline@latest && \
     go install golang.org/x/tools/gopls@latest && \
     go install golang.org/x/tools/cmd/goimports@latest && \
