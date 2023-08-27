@@ -1,4 +1,4 @@
-FROM golang:1.20
+FROM golang:1.21
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -21,13 +21,13 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} && \
     rm -rf /var/lib/apt/lists/*
 
 USER ${USERNAME}
+WORKDIR /workspace
 
 # Dev tools
-RUN go install github.com/ramya-rao-a/go-outline@latest && \
-    go install golang.org/x/tools/gopls@latest && \
-    go install golang.org/x/tools/cmd/goimports@latest && \
-    go install honnef.co/go/tools/cmd/staticcheck@latest && \
-    go install github.com/kisielk/errcheck@latest && \
+RUN go install golang.org/x/tools/gopls@latest && \
     go install github.com/go-delve/delve/cmd/dlv@latest
+RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2
 
-WORKDIR /workspace
+#COPY go.mod ./
+#COPY go.sum ./
+#RUN go mod download

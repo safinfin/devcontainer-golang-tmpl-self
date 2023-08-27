@@ -1,23 +1,32 @@
-BINNAME := app
+BINNAME := app-name
+
+.PHONY: prepare
+prepare: build-image
+
+.PHONY: build-image
+build-image:
+	docker build -t mod-name:latest -f docker/Dockerfile .
+
+.PHONY: clean
+clean:
+	go clean
 
 .PHONY: lint
 lint:
-	go fmt ./...
-	staticcheck ./...
-	errcheck ./...
+	golangci-lint run ./...
+
+.PHONY: lint-cache-clean
+lint-cache-clean:
+	golangci-lint cache clean
 
 .PHONY: test
 test:
 	go test -v ./...
 
+.PHONY: test-cache-clean
+test-cache-clean:
+	go clean -testcache
+
 .PHONY: build
 build:
-	go build -o build/$(BINNAME) main.go
-
-.PHONY: build-linux-amd64
-build-linux-amd64:
-	GOOS=linux GOARCH=amd64 go build -o build/linux-amd64/$(BINNAME) main.go
-
-.PHONY: build-linux-arm64
-build-linux-arm64:
-	GOOS=linux GOARCH=arm64 go build -o build/linux-arm64/$(BINNAME) main.go
+	GOOS=linux GOARCH=amd64 go build -o build/$(BINNAME) main.go

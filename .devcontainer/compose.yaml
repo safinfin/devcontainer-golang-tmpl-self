@@ -1,8 +1,6 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  app-name:
+    image: mod-name:latest
     volumes:
       - ..:/workspace:cached
     command: sleep infinity
