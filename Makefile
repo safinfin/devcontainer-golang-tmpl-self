@@ -13,11 +13,9 @@ clean:
 
 .PHONY: lint
 lint:
-	golangci-lint run ./...
-
-.PHONY: lint-cache-clean
-lint-cache-clean:
-	golangci-lint cache clean
+	go fmt ./...
+	staticcheck ./...
+	errcheck ./...
 
 .PHONY: test
 test:

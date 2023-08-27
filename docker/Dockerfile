@@ -25,8 +25,9 @@ WORKDIR /workspace
 
 # Dev tools
 RUN go install golang.org/x/tools/gopls@latest && \
+    go install honnef.co/go/tools/cmd/staticcheck@latest && \
+    go install github.com/kisielk/errcheck@latest && \
     go install github.com/go-delve/delve/cmd/dlv@latest
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2
 
 #COPY go.mod ./
 #COPY go.sum ./

@@ -4,8 +4,5 @@
   "go.toolsManagement.checkForUpdates": "local",
   "go.useLanguageServer": true,
   "go.gopath": "/go",
-  "go.lintTool": "golangci-lint",
-  "go.lintFlags": [
-    "--fast"
-  ]
+  "go.lintTool": "staticcheck"
 }
