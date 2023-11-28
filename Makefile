@@ -15,6 +15,10 @@ clean:
 lint:
 	golangci-lint run ./...
 
+.PHONY: lint-buildvcs-false
+lint-buildvcs-false:
+	GOFLAGS=-buildvcs=false golangci-lint run ./...
+
 .PHONY: lint-cache-clean
 lint-cache-clean:
 	golangci-lint cache clean
@@ -30,3 +34,7 @@ test-cache-clean:
 .PHONY: build
 build:
 	GOOS=linux GOARCH=amd64 go build -o build/$(BINNAME) main.go
+
+.PHONY: build-cgo-disabled
+build:
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/$(BINNAME) main.go
