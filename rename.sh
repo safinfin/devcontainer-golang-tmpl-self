@@ -21,10 +21,10 @@ initialization script to replace app-name and mod-name in the template files.
   - project_root/.devcontainer/compose.yaml
 
 Usage:
-  replace-names.sh -a <app-name> -m <mod-name>
+  ${0} -a <app-name> -m <mod-name>
 
 Example:
-  replace-names.sh -a sampleapp -m github.com/safinfin/sampleapp
+  ${0} -a sampleapp -m github.com/safinfin/sampleapp
 EOF
 }
 
